@@ -1,0 +1,54 @@
+<%- include("../partials/header") %>
+
+	<div class="row">
+		<div class="col-md-3">
+			<p class="lead">Yelp Camp</p>
+			<ul class="list-group">
+				<a href="#" class="list-group-item list-group-item-action active">Info 1</a>
+				<a href="#" class="list-group-item list-group-item-action">Info 2</a>
+				<a href="#" class="list-group-item list-group-item-action">Info 3</a>
+			</ul>
+		</div>
+		<div class="col-md-9">
+			<div class="card mb-3">
+  				<img class="card-img-top" src="<%= campground.image %>" alt="<%= campground.name %>" loading="lazy">
+  					<div class="card-body">
+						<h4 class="card-title"><a href=""><%= campground.name %></a> <span class="float-right">$<%= campground.price.toFixed(2) %>/night</span></h4>
+						<hr>
+						<p class="card-text"><%= campground.description %></p>
+						<p class="card-text text-muted"><em>Submitted by: Submitted by: <%= campground.author.username %>, <%= moment(campground.createdAt).fromNow() %></em></p>
+						<% if(currentUser && campground.author.id.equals(currentUser._id)) { %>
+						<a class="btn btn-primary" href="/campgrounds/<%= campground._id %>/edit"><i class="fas fa-edit"></i> Edit</a>
+						<form class="d-inline" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
+							<button class="btn btn-danger"><i class="far fa-trash-alt"></i> Delete</button>
+						</form>
+						<% } %>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-footer">
+					<p class="text-right"><a class="btn btn-success" href="/campgrounds/<%= campground._id %>/comments/new"><i class="fas fa-pencil-alt"></i> Add New Comment</a>
+					<hr>
+					<ul class="list-group list-group-flush">
+						<% campground.comments.forEach(function(comment) { %>
+							<li class="list-group-item">
+								<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1"><%= comment.author.username %></h5>
+									<small><%= moment(comment.createdAt).fromNow() %></small>
+								</div>
+								<p class="mb-1"><%= comment.text %></p>
+								<% if(currentUser && comment.author.id.equals(currentUser._id)) { %>
+									<a class="btn btn-primary" href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit"><i class="fas fa-edit"></i> Edit</a>
+									<form class="d-inline" action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+										<button class="btn btn-danger"><i class="far fa-trash-alt"></i> Delete</button>
+									</form>
+								<% } %>
+							</li>
+						<% }) %>
+						</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<%- include("../partials/footer") %>

@@ -1,0 +1,20 @@
+<%- include("../partials/header") %>
+
+	<div class="text-center">
+		<h1>Editing comment (<%= comment.text.substring(0,15) %>...)</h1>
+			<div class="row justify-content-center">
+				<div class="col-lg-6">
+					<form action="/campgrounds/<%= campground_id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
+						<div class="form-group">
+							<label for="inputCommentText" hidden>Comment</label>
+							<textarea name="comment[text]" class="form-control" id="inputCommentText" rows="3" aria-describedby="commentTextHelp"><%= comment.text %></textarea>
+							<small id="commentTextHelp" class="form-text text-muted">Edit comment</small>
+						</div>
+					  <button type="submit" class="btn btn-primary btn-block">Submit</button>
+					</form>
+					<p class="text-left mt-3"><a href="/campgrounds/<%= campground_id %>">Go Back</a></p>
+				</div>
+			</div>
+	</div>
+
+<%- include("../partials/footer") %>
