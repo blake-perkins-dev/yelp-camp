@@ -41,9 +41,9 @@
 					</li>
 				<% } else { %>
 				<% if(currentUser && currentUser.isAdmin) { %>
-					<li><a class="nav-link" href="#">Signed in as: <%= currentUser.username %> - ADMIN</a></li>
+					<li><a class="nav-link" href="/users/<%= currentUser.id %>">Signed in as: <%= currentUser.username %> - ADMIN</a></li>
 				<% } else { %>
-					<li><a class="nav-link" href="#">Signed in as: <%= currentUser.username %></a></li>
+					<li><a class="nav-link" href="/users/<%= currentUser.id %>">Signed in as: <%= currentUser.username %></a></li>
 				<% } %>
 					<li class="nav-item">
 						<a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>

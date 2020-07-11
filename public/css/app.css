@@ -3,3 +3,6 @@
     height: 25vh;
     object-fit: cover;
 }
+.campgroundSidebar {
+	top: 5rem;
+}
