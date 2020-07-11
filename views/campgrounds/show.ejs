@@ -17,8 +17,8 @@
 							<hr>
 							<h5>Description</h5>
 							<p class="card-text"><%= campground.description %></p>
-							<p class="card-text text-muted"><em>Submitted by: Submitted by: <%= campground.author.username %>, <%= moment(campground.createdAt).fromNow() %></em></p>
-							<% if(currentUser && campground.author.id.equals(currentUser._id)) { %>
+							<p class="card-text text-muted"><em>Submitted by: Submitted by: <a href="/users/<%= campground.author.id %>"><%= campground.author.username %></a>, <%= moment(campground.createdAt).fromNow() %></em></p>
+							<% if(currentUser && campground.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
 							<a class="btn btn-primary" href="/campgrounds/<%= campground._id %>/edit"><i class="fas fa-edit"></i> Edit</a>
 							<form class="d-inline" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
 								<button class="btn btn-danger"><i class="far fa-trash-alt"></i> Delete</button>
@@ -35,7 +35,7 @@
 							<h5>Amenities</h5>
 							<p class="card-text"><%= campground.amenities %></p>
 							<p class="card-text text-muted"><em>Submitted by: Submitted by: <%= campground.author.username %>, <%= moment(campground.createdAt).fromNow() %></em></p>
-							<% if(currentUser && campground.author.id.equals(currentUser._id)) { %>
+							<% if(currentUser && campground.author.id.equals(currentUser._id)  || currentUser && currentUser.isAdmin) { %>
 							<a class="btn btn-primary" href="/campgrounds/<%= campground._id %>/edit"><i class="fas fa-edit"></i> Edit</a>
 							<form class="d-inline" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
 								<button class="btn btn-danger"><i class="far fa-trash-alt"></i> Delete</button>
@@ -57,7 +57,7 @@
 									<small><%= moment(comment.createdAt).fromNow() %></small>
 								</div>
 								<p class="mb-1"><%= comment.text %></p>
-								<% if(currentUser && comment.author.id.equals(currentUser._id)) { %>
+								<% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
 									<a class="btn btn-primary" href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit"><i class="fas fa-edit"></i> Edit</a>
 									<form class="d-inline" action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
 										<button class="btn btn-danger"><i class="far fa-trash-alt"></i> Delete</button>
