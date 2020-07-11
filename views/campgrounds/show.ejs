@@ -3,28 +3,48 @@
 	<div class="row">
 		<div class="col-md-3">
 			<p class="lead">Yelp Camp</p>
-			<ul class="list-group">
-				<a href="#" class="list-group-item list-group-item-action active">Info 1</a>
-				<a href="#" class="list-group-item list-group-item-action">Info 2</a>
-				<a href="#" class="list-group-item list-group-item-action">Info 3</a>
-			</ul>
+			<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+				<a class="list-group-item list-group-item-action active" id="v-pills-description-tab" data-toggle="pill" href="#v-pills-description" role="tab" aria-controls="v-pills-description" aria-selected="true">Description</a>
+				<a class="list-group-item list-group-item-action" id="v-pills-amenities-tab" data-toggle="pill" href="#v-pills-amenities" role="tab" aria-controls="v-pills-amenities" aria-selected="false">Amenities</a>
+			</div>
 		</div>
 		<div class="col-md-9">
-			<div class="card mb-3">
-  				<img class="card-img-top" src="<%= campground.image %>" alt="<%= campground.name %>" loading="lazy">
-  					<div class="card-body">
-						<h4 class="card-title"><a href=""><%= campground.name %></a> <span class="float-right">$<%= campground.price.toFixed(2) %>/night</span></h4>
-						<hr>
-						<p class="card-text"><%= campground.description %></p>
-						<p class="card-text text-muted"><em>Submitted by: Submitted by: <%= campground.author.username %>, <%= moment(campground.createdAt).fromNow() %></em></p>
-						<% if(currentUser && campground.author.id.equals(currentUser._id)) { %>
-						<a class="btn btn-primary" href="/campgrounds/<%= campground._id %>/edit"><i class="fas fa-edit"></i> Edit</a>
-						<form class="d-inline" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
-							<button class="btn btn-danger"><i class="far fa-trash-alt"></i> Delete</button>
-						</form>
-						<% } %>
+			<div class="tab-content" id="v-pills-tabContent">
+				<div class="tab-pane fade show card mb-3 active" id="v-pills-description" role="tabpanel" aria-labelledby="v-pills-description-tab">
+					<img class="card-img-top" src="<%= campground.image %>" alt="<%= campground.name %>" loading="lazy">
+						<div class="card-body">
+							<h4 class="card-title"><a href=""><%= campground.name %></a> <span class="float-right"><% if(campground.price) { %>$<%= campground.price.toFixed(2) %>/night<% } else { %>FREE<% } %></span></h4>
+							<hr>
+							<h5>Description</h5>
+							<p class="card-text"><%= campground.description %></p>
+							<p class="card-text text-muted"><em>Submitted by: Submitted by: <%= campground.author.username %>, <%= moment(campground.createdAt).fromNow() %></em></p>
+							<% if(currentUser && campground.author.id.equals(currentUser._id)) { %>
+							<a class="btn btn-primary" href="/campgrounds/<%= campground._id %>/edit"><i class="fas fa-edit"></i> Edit</a>
+							<form class="d-inline" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
+								<button class="btn btn-danger"><i class="far fa-trash-alt"></i> Delete</button>
+							</form>
+							<% } %>
+					</div>
+				</div>
+
+				<div class="tab-pane fade card mb-3" id="v-pills-amenities" role="tabpanel" aria-labelledby="v-pills-amenities-tab">
+					<img class="card-img-top" src="<%= campground.image %>" alt="<%= campground.name %>" loading="lazy">
+						<div class="card-body">
+							<h4 class="card-title"><a href=""><%= campground.name %></a> <span class="float-right"><% if(campground.price) { %>$<%= campground.price.toFixed(2) %>/night<% } else { %>FREE<% } %></span></h4>
+							<hr>
+							<h5>Amenities</h5>
+							<p class="card-text"><%= campground.amenities %></p>
+							<p class="card-text text-muted"><em>Submitted by: Submitted by: <%= campground.author.username %>, <%= moment(campground.createdAt).fromNow() %></em></p>
+							<% if(currentUser && campground.author.id.equals(currentUser._id)) { %>
+							<a class="btn btn-primary" href="/campgrounds/<%= campground._id %>/edit"><i class="fas fa-edit"></i> Edit</a>
+							<form class="d-inline" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
+								<button class="btn btn-danger"><i class="far fa-trash-alt"></i> Delete</button>
+							</form>
+							<% } %>
+					</div>
 				</div>
 			</div>
+			
 			<div class="card">
 				<div class="card-footer">
 					<p class="text-right"><a class="btn btn-success" href="/campgrounds/<%= campground._id %>/comments/new"><i class="fas fa-pencil-alt"></i> Add New Comment</a>

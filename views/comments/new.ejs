@@ -7,7 +7,7 @@
 					<form action="/campgrounds/<%= campground._id %>/comments" method="POST">
 						<div class="form-group">
 							<label for="inputText" hidden>Comment</label>
-							<textarea name="comment[text]" class="form-control" id="inputText" rows="3" aria-describedby="textHelp" placeholder="Comment"></textarea>
+							<textarea name="comment[text]" class="form-control" id="inputText" rows="3" aria-describedby="textHelp" placeholder="Comment" required></textarea>
 							<small id="textHelp" class="form-text text-muted">Enter comment</small>
 						</div>
 					  <button type="submit" class="btn btn-primary btn-block">Submit</button>

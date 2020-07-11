@@ -5,6 +5,7 @@ const campgroundSchema = new mongoose.Schema({
 	price: Number,
 	image: String,
 	description: String,
+	amenities: String,
 	createdAt: {
 		type: Date,
 		default: Date.now
