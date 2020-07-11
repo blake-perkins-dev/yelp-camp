@@ -6,3 +6,9 @@
 .campgroundSidebar {
 	top: 5rem;
 }
+
+@media (max-width: 767px) {
+	.campgroundSidebar {
+		position: initial;
+	}
+}
