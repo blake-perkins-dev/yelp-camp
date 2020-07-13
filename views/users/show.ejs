@@ -22,7 +22,7 @@
 			<p class="card-text">Campgrounds:</p>
 			<% if (campgrounds.length > 0) { %>
 				<ul>
-				<% campgrounds.forEach(function(campground) { %>
+				<% campgrounds.forEach((campground) => { %>
 					<li><a href="/campgrounds/<%= campground.id %>"><%= campground.name %></a></li>
 				<% }); %>
 				</ul>

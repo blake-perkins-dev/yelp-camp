@@ -6,7 +6,7 @@ const passport = require("passport"),
 	  Campground = require("../models/campground");
 
 //ROOT ROUTE
-router.get("/", function(req, res) {
+router.get("/", (req, res) => {
 	res.render("landing");
 });
 
@@ -15,12 +15,12 @@ router.get("/", function(req, res) {
 //==================
 
 //REGISTER FORM
-router.get("/register", function(req, res) {
+router.get("/register", (req, res) => {
 	res.render("register", {page: "register"});
 });
 
 //REGISTER to DB
-router.post("/register", function(req, res) {
+router.post("/register", (req, res) => {
 	const newUser = new User({
 		username: req.body.username,
 		firstName: req.body.firstName,
@@ -31,12 +31,12 @@ router.post("/register", function(req, res) {
 	if(req.body.adminCode === process.env.ADMIN_SECRET) {
 		newUser.isAdmin = true;
 	}
-	User.register(newUser, req.body.password, function(err, user) {
+	User.register(newUser, req.body.password, (err, user) => {
 		if(err) {
 			req.flash("error", err.message);
 			res.redirect("/register");
 		}
-		passport.authenticate("local")(req, res, function() {
+		passport.authenticate("local")(req, res, () => {
 			req.flash("success", "Welcome to YelpCamp, " + user.username + "!");
 			res.redirect("/campgrounds");
 		});
@@ -44,7 +44,7 @@ router.post("/register", function(req, res) {
 });
 
 //LOGIN FORM
-router.get("/login", function(req, res) {
+router.get("/login", (req, res) => {
 	res.render("login", {page: "login"});
 });
 
@@ -52,24 +52,24 @@ router.get("/login", function(req, res) {
 router.post("/login", passport.authenticate("local", {
 	successRedirect: "/campgrounds",
 	failureRedirect: "/login"
-}), function(req, res) {
+}), (req, res) => {
 });
 
 //LOGOUT
-router.get("/logout", function(req, res) {
+router.get("/logout", (req, res) => {
 	req.logout();
 	req.flash("success", "Logged you out!");
 	res.redirect("/campgrounds");
 });
 
 //USER PROFILES
-router.get("/users/:id", function(req,res) {
-	User.findById(req.params.id, function(err, foundUser) {
+router.get("/users/:id", (req,res) => {
+	User.findById(req.params.id, (err, foundUser) => {
 		if(err) {
 			req.flash("error", "Something went wrong!");
 			res.redirect("back");
 		}
-		Campground.find().where("author.id").equals(foundUser._id).exec(function(err, campgrounds) {
+		Campground.find().where("author.id").equals(foundUser._id).exec((err, campgrounds) => {
 			if(err) {
 			req.flash("error", "Something went wrong!");
 			res.redirect("back");
