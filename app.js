@@ -9,15 +9,15 @@ const express = require("express"),
 	  Campground = require("./models/campground"),
 	  Comment = require("./models/comment"),
 	  User = require("./models/user"),
-	  seedDB = require("./seeds");
+	  seedDB = require("./seeds"),
+	  dotenv = require("dotenv").config();
 
 //Requiring Routes
 const commentRoutes = require("./routes/comments"),
 	  campgroundRoutes = require("./routes/campgrounds"),
 	  indexRoutes = require("./routes/index");
 
-// mongoose.connect("mongodb://localhost/yelp_camp", {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
-mongoose.connect("mongodb+srv://blakeperkins:PtLDG4BS9QCxUz10@cluster0.i40co.mongodb.net/<dbname>?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false}).then(() => {
+mongoose.connect(process.env.DATABASEURL, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false}).then(() => {
 	console.log("Connected to DB!");
 }).catch(err => {
 	conosole.log("ERROR:", err.message);
@@ -36,7 +36,7 @@ app.locals.moment = require('moment');
 // PASSPORT CONFIG
 //============================
 app.use(require("express-session")({
-	secret: "GBdSPCUgvU9JWkys89Bv4EY6kdCCV5zq",
+	secret: process.env.SESSION_SECRET,
 	resave: false,
 	saveUninitialized: false
 }));
