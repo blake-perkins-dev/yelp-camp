@@ -1,3 +1,7 @@
+.pageContent {
+	min-height: 85.4vh
+}
+
 .campgroundListImg {
     width: 100%;
     height: 25vh;
@@ -11,4 +15,12 @@
 	.campgroundSidebar {
 		position: initial;
 	}
+}
+
+.footerCopyright, .footerCopyright a {
+	color: white;
+}
+
+.footerCopyright a:hover {
+	opacity: .8;
 }
